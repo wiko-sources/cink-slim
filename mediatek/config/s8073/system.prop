@@ -1,0 +1,88 @@
+#
+# system.prop for generic sdk
+#
+
+rild.libpath=/system/lib/mtk-ril.so
+rild.libargs=-d /dev/ttyC0
+
+
+# MTK, Infinity, 20090720 {
+wifi.interface=wlan0
+# MTK, Infinity, 20090720 }
+
+# MTK, mtk03034, 20101210 {
+ro.mediatek.wlan.wsc=1
+# MTK, mtk03034 20101210}
+# MTK, mtk03034, 20110318 {
+ro.mediatek.wlan.p2p=1
+# MTK, mtk03034 20110318}
+
+# MTK, mtk03034, 20101213 {
+mediatek.wlan.ctia=0
+# MTK, mtk03034 20101213}
+
+
+# MTK, TeChien {
+ro.media.enc.hprof.file.format=3gp
+ro.media.enc.hprof.codec.vid=m4v
+ro.media.enc.hprof.vid.width=720
+ro.media.enc.hprof.vid.height=480
+ro.media.enc.hprof.vid.fps=30
+ro.media.enc.hprof.vid.bps=3400000
+ro.media.enc.hprof.codec.aud=amrnb
+ro.media.enc.hprof.aud.bps=12200
+ro.media.enc.hprof.aud.ch=1
+ro.media.enc.hprof.aud.hz=8000
+
+ro.media.enc.mprof.file.format=3gp
+ro.media.enc.mprof.codec.vid=m4v
+ro.media.enc.mprof.vid.width=352
+ro.media.enc.mprof.vid.height=288
+ro.media.enc.mprof.vid.fps=30
+ro.media.enc.mprof.vid.bps=990000
+ro.media.enc.mprof.codec.aud=amrnb
+ro.media.enc.mprof.aud.bps=12200
+ro.media.enc.mprof.aud.ch=1
+ro.media.enc.mprof.aud.hz=8000
+
+ro.media.enc.lprof.file.format=3gp
+ro.media.enc.lprof.codec.vid=h263
+ro.media.enc.lprof.vid.width=176
+ro.media.enc.lprof.vid.height=144
+ro.media.enc.lprof.vid.fps=30
+ro.media.enc.lprof.vid.bps=384000
+ro.media.enc.lprof.codec.aud=amrnb
+ro.media.enc.lprof.aud.bps=12200
+ro.media.enc.lprof.aud.ch=1
+ro.media.enc.lprof.aud.hz=8000
+# MTK, TeChien }
+
+#
+wifi.tethering.interface=ap0
+#
+
+ro.opengles.version=131072
+
+wifi.direct.interface=p2p0
+dalvik.vm.heapgrowthlimit=48m
+dalvik.vm.heapsize=128m
+
+
+# Encrypt phone function
+ro.crypto.tmpfs_options=mode=0771,uid=1000,gid=1000
+ro.crypto.fs_type=ext4
+ro.crypto.fs_real_blkdev=/emmc@usrdata
+ro.crypto.fs_mnt_point=/data
+ro.crypto.fs_options=noauto_da_alloc
+ro.crypto.fs_flags=0x00000406
+
+# USB MTP WHQL
+ro.sys.usb.mtp.whql.enable=0
+
+# Power off opt in IPO
+sys.ipo.pwrdncap=2
+
+ro.sys.usb.storage.type=mtp,mass_storage
+net.tinno.bt.name=WIKO-CINK SLIM
+wifi.net.ssid_default=WIKO-CINK SLIM
+ro.tinno.build.version=S8073B_PP_F4_B1B8_2.09_V12

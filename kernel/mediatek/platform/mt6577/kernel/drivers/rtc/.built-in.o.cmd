@@ -1,0 +1,1 @@
+cmd_mediatek/platform/mt6577/kernel/drivers/rtc/built-in.o :=  arm-linux-androideabi-ld.bfd -EL    -r -o mediatek/platform/mt6577/kernel/drivers/rtc/built-in.o mediatek/platform/mt6577/kernel/drivers/rtc/mtk_rtc.o 

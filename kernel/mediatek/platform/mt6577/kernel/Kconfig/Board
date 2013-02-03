@@ -1,0 +1,47 @@
+if ARCH_MT6577
+
+menu "MT6577 Board Support Package"
+
+choice
+	bool "Board"
+
+config MT6577_ESL
+	bool "MT6577 ESL"
+	select ARM_GIC
+	help
+	  Select if you are using the ESL.
+
+config MT6577_FPGA
+	bool "MT6577 FPGA"
+	select ARM_GIC
+	help
+	  Select if you are using the FPGA board.
+
+config MT6577_EVB_BOARD
+	bool "MT6577 EVB BOARD"
+	select ARM_GIC
+	help
+	  Select if you are using an EVB board.
+
+config EAGLE77V1
+	bool "Eagle77v1 phone"
+	select ARM_GIC
+	help
+	  Select if you are using an Eagle75v1 phone.
+
+endchoice
+
+config MAX_DRAM_SIZE_SUPPORT
+	hex "The maximum size of the DRAM can be supported in the kernel"
+	default 0x10000000
+	depends on ARCH_MT6577
+	help
+		Define the maximum size of the kernel can be supported.
+	        If will modify the memory size if it size is smaller than 
+                the memory size passed by the boot loader to the MAX_DRAM_SIZE_SUPPORT.
+   		Notice that the maximum DRAM size is including the memory size
+	        reserved for the modem and the PMEM.
+
+endmenu
+
+endif # ARCH_MT6577

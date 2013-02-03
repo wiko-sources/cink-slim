@@ -1,0 +1,4 @@
+kernel/mediatek/platform/mt6577/kernel/drivers/mmc-host/dbg.ko
+kernel/mediatek/platform/mt6577/kernel/drivers/mmc-host/sd.ko
+kernel/mediatek/platform/mt6577/kernel/drivers/mmc-host/mt6577_sd_misc.ko
+kernel/mediatek/platform/mt6577/kernel/drivers/mmc-host/sd_dump.ko

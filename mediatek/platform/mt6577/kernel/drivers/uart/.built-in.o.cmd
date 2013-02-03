@@ -1,0 +1,1 @@
+cmd_mediatek/platform/mt6577/kernel/drivers/uart/built-in.o :=  arm-linux-androideabi-ld.bfd -EL    -r -o mediatek/platform/mt6577/kernel/drivers/uart/built-in.o mediatek/platform/mt6577/kernel/drivers/uart/uart.o mediatek/platform/mt6577/kernel/drivers/uart/mt_fiq_debugger.o 

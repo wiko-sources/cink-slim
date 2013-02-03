@@ -1,0 +1,1 @@
+cmd_mediatek/platform/mt6577/kernel/drivers/jpeg/jpeg_driver.o := arm-linux-androideabi-ld.bfd -EL    -r -o mediatek/platform/mt6577/kernel/drivers/jpeg/jpeg_driver.o mediatek/platform/mt6577/kernel/drivers/jpeg/jpeg_drv_6577_enc.o mediatek/platform/mt6577/kernel/drivers/jpeg/jpeg_drv_6577_dec.o mediatek/platform/mt6577/kernel/drivers/jpeg/jpeg_drv.o 

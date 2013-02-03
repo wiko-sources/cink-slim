@@ -1,0 +1,1 @@
+cmd_mediatek/platform/mt6577/kernel/drivers/dum-char/DumChar.o := arm-linux-androideabi-ld.bfd -EL    -r -o mediatek/platform/mt6577/kernel/drivers/dum-char/DumChar.o mediatek/platform/mt6577/kernel/drivers/dum-char/dumchar.o mediatek/platform/mt6577/kernel/drivers/dum-char/partition_define.o 

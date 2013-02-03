@@ -1,0 +1,36 @@
+#ifndef _CAMERA_INFO_IMX105MIPIRAW_MT6573_H
+#define _CAMERA_INFO_IMX105MIPIRAW_MT6573_H
+
+/*******************************************************************************
+*   Configuration
+********************************************************************************/
+#define SENSOR_ID                           IMX105_SENSOR_ID
+#define SENSOR_DRVNAME                      SENSOR_DRVNAME_IMX105_MIPI_RAW
+#define INCLUDE_FILENAME_ISP_REGS_PARAM     "camera_isp_regs_imx105mipiraw_mt6573.h"
+#define INCLUDE_FILENAME_ISP_PCA_PARAM      "camera_isp_pca_imx105mipiraw_mt6573.h"
+
+/*******************************************************************************
+*   
+********************************************************************************/
+
+#if defined(ISP_SUPPORT)
+
+#define IMX105MIPIRAW_CAMERA_AUTO_DSC CAM_AUTO_DSC
+#define IMX105MIPIRAW_CAMERA_PORTRAIT CAM_PORTRAIT
+#define IMX105MIPIRAW_CAMERA_LANDSCAPE CAM_LANDSCAPE
+#define IMX105MIPIRAW_CAMERA_SPORT CAM_SPORT
+#define IMX105MIPIRAW_CAMERA_FLOWER CAM_FLOWER
+#define IMX105MIPIRAW_CAMERA_NIGHTSCENE CAM_NIGHTSCENE
+#define IMX105MIPIRAW_CAMERA_DOCUMENT CAM_DOCUMENT
+#define IMX105MIPIRAW_CAMERA_ISO_ANTI_HAND_SHAKE CAM_ISO_ANTI_HAND_SHAKE
+#define IMX105MIPIRAW_CAMERA_ISO100 CAM_ISO100
+#define IMX105MIPIRAW_CAMERA_ISO200 CAM_ISO200
+#define IMX105MIPIRAW_CAMERA_ISO400 CAM_ISO400
+#define IMX105MIPIRAW_CAMERA_ISO800 CAM_ISO800
+#define IMX105MIPIRAW_CAMERA_ISO1600 CAM_ISO1600
+#define IMX105MIPIRAW_CAMERA_VIDEO_AUTO CAM_VIDEO_AUTO
+#define IMX105MIPIRAW_CAMERA_VIDEO_NIGHT CAM_VIDEO_NIGHT
+#define IMX105MIPIRAW_CAMERA_NO_OF_SCENE_MODE CAM_NO_OF_SCENE_MODE
+
+#endif
+#endif

@@ -1,0 +1,5 @@
+kernel/mediatek/platform/mt6577/kernel/drivers/power/pmic_mt6329.ko
+kernel/mediatek/platform/mt6577/kernel/drivers/power/pmic_mt6329_bank1.ko
+kernel/mediatek/platform/mt6577/kernel/drivers/power/upmu_common.ko
+kernel/mediatek/platform/mt6577/kernel/drivers/power/mt6577_battery.ko
+kernel/mediatek/platform/mt6577/kernel/drivers/power/mt6577_fuel_gauge.ko

@@ -1,0 +1,98 @@
+if ARCH_MT6577
+
+
+# TODO naming refine
+menu "Kernel Configurations"
+
+menu "Tracer Related"
+config MTK_SCHED_TRACERS
+        bool "MTK Sched Tracers"
+        select CONTEXT_SWITCH_TRACER
+        select GENERIC_TRACER
+        help
+           Trace context swicth, set_scheduler, Interrupt Handler
+
+config FUNCTION_DURATION_TRACER
+        bool "Kernel Function Duration Tracer"
+        depends on FUNCTION_GRAPH_TRACER
+        help
+          Enable the kernel to record function durations, with
+          filtering.  Can also be used in early startup.
+          See Documentation/trace/func-duration.txt
+
+config MT65XX_TRACER
+        bool "MT65XX Tracer"
+        select CONTEXT_SWITCH_TRACER
+        select GENERIC_TRACER
+
+config GENERIC_TRACER
+        bool "Scheduler Switch Tracer"
+
+endmenu
+
+menu "MTPROF tools"
+
+config MTPROF_CPUTIME
+    bool "thread cputime profiling"
+    depends on SCHEDSTATS
+
+endmenu
+
+config MTPROF_APPLAUNCH
+    bool "applaunch time profiling"
+    
+config MTPROF_IRQ_DURATION
+    bool "mt IRQ/ISR profiling"
+
+config MTK_AEE_FEATURE
+        tristate "Enable Android Exception Enhancement"
+        default n
+        ---help---
+          Enable Android Exception Enhancement
+
+config MTK_AEE_AED
+        tristate "Enable AEE Kernel Exception Report Daemon"
+        default y
+
+config MTK_AEE_IPANIC
+        tristate "Enable AEE Kernel Panic Dump"
+        default y
+
+config MTK_AEE_KDUMP
+        tristate "Include memory Dump"
+        default y
+
+config ANDROID_VMEM
+	tristate "Virutally continuous memory allocator"
+	default y
+
+config PREEMPT_MONITOR
+	bool "mt preempt monitor"
+	default n
+
+config ISR_MONITOR
+	bool "mt ISR monitor"
+	default n
+
+config MT_SCHED_MONITOR
+	bool "mt scheduler monitor"
+	default n
+
+config MT_CHRDEV_REG
+	bool "mt char driver number table"
+	default n
+
+config MT_LOCK_DEBUG
+	bool "Record lock table and detect some possible deadlock"
+	default n
+
+config PRINTK_PROCESS_INFO 
+	bool "Prefix pid/process_name to each kernel log"
+	default n
+
+config MT_ENG_BUILD
+    bool "flag for MTK eng/usr build verification"
+    default n
+endmenu
+
+endif # ARCH_MT6577

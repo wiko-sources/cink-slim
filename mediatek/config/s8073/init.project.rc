@@ -1,0 +1,233 @@
+on fs
+# mount mtd partitions
+
+
+on post-fs
+# Add by Mtk
+
+
+on post-fs-data
+
+#
+# MT6620 related device nodes & configuration (begin)
+#
+
+#/dev/ttyMT2 for MT6620 BT/FM/GPS usage
+    chmod 0660 /dev/ttyMT2
+    chown system system /dev/ttyMT2
+
+# Turn off MT6620 by default
+    chmod 0664 /sys/class/rfkill/rfkill0/state
+    chown system system /sys/class/rfkill/rfkill0/state
+    write sys/class/rfkill/rfkill0/state 0
+
+
+# STP, WMT, GPS, FM and BT Driver
+    insmod /system/lib/modules/mtk_hif_sdio.ko
+    insmod /system/lib/modules/mtk_stp_wmt.ko
+    insmod /system/lib/modules/mtk_stp_uart.ko
+#    insmod /system/lib/modules/mtk_stp_gps.ko
+    insmod /system/lib/modules/mtk_stp_bt.ko
+    insmod /system/lib/modules/mt6620_fm_drv.ko
+    insmod /system/lib/modules/mtk_fm_priv.ko
+
+# Create char device file for WMT, GPS, BT, FM
+    mknod /dev/stpwmt c 190 0;
+#    mknod /dev/stpgps c 191 0;
+    mknod /dev/stpbt  c 192 0;
+    mknod /dev/fm     c 193 0;
+    chmod 0660 /dev/stpwmt
+	chown system system /dev/stpwmt
+
+# BT
+    chmod 0660 /dev/stpbt
+    chown bluetooth radio /dev/stpbt
+
+# FM Radio device, FIXME: this is not a proper way to set permissions
+    chmod 0660 /dev/fm
+
+# GPS
+    chown gps gps /dev/gps
+    chown gps gps /dev/stpgps
+    chown gps gps /sys/class/gpsdrv/gps/pwrctl
+    chown gps gps /sys/class/gpsdrv/gps/suspend
+    chown gps gps /sys/class/gpsdrv/gps/state
+    chown gps gps /sys/class/gpsdrv/gps/pwrsave
+    chown gps gps /sys/class/gpsdrv/gps/status
+    chmod 0664 /dev/gps
+    chmod 0660 /dev/stpgps
+
+# WiFi
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
+    #mkdir /data/misc/wpa_supplicant 0770 wifi wifi
+    #mkdir /data/misc/p2p_supplicant 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+    chmod 0660 /sys/class/rfkill/rfkill3/state
+    chown wifi system /sys/class/rfkill/rfkill3/state
+    chown wifi wifi /data/misc/wifi
+
+# WiFi hotspot / WiFi P2P
+    chmod 0660 /data/misc/wifi/p2p_supplicant.conf
+    chown wifi wifi /data/misc/wifi/p2p_supplicant.conf
+
+# Load CFG80211 Module
+    insmod /system/lib/modules/cfg80211.ko
+
+# Load WiFi Driver
+    #insmod /system/lib/modules/wlan.ko
+
+    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
+    chmod 0660 /data/misc/wifi/wpa_supplicant.sh
+
+# GPS
+    mkdir /data/gps 0777 root root
+    chmod 0660 /sys/class/rfkill/rfkill1/state
+    
+# Char device for BT 3.0 HS
+    mknod /dev/ampc0 c 151 0
+    chown bluetooth bluetooth /dev/ampc0
+    chmod 0660 /dev/ampc0
+
+#
+# MT6620 related device nodes & configuration (end)
+#
+
+# Encrypt phone function
+    setprop vold.post_fs_data_done 1
+
+    chmod 0777 /proc/bluetooth/sleep/btwake
+    chmod 0777 /proc/bluetooth/sleep/hostwake
+    chmod 0777 /proc/bluetooth/sleep/proto
+    chmod 0777 /proc/bluetooth/sleep/asleep
+    chmod 0777 /etc/init.bt.sh
+
+on boot
+
+#
+# MT6620 related services (Begin)
+#
+#service 6620_launcher /system/bin/6620_launcher 4000000 /system/etc/firmware/mt6620_patch_hdr.bin
+#    user system
+#    group system
+#    class core
+
+#service stp_dump /system/bin/stp_dump3
+#    class main
+#    user system
+#    group system net_admin
+#   oneshot
+
+#   oneshot
+#
+# MT6620 related services (End)
+#
+
+
+service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -puse_p2p_group_interface=1 -e/data/misc/wifi/entropy.bin
+#service wpa_supplicant /system/bin/sh /system/etc/wifi/wpa_supplicant.sh +x
+    group system wifi inet keystore
+    disabled
+    user root
+    oneshot
+
+service hostapd /system/bin/hostapd -dddd /data/misc/wifi/hostapd.conf
+    class late_start
+    user root
+    group root
+    oneshot
+    disabled
+
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKLG
+    class late_start
+    disabled
+    oneshot
+
+service dhcpcd_p2p /system/bin/dhcpcd -aABKL
+    class late_start
+    disabled
+    oneshot
+
+# wimax
+service dhcpcd_uwbr0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class late_start
+    disabled
+    oneshot
+
+service iprenew_p2p /system/bin/dhcpcd -n p2p
+    class late_start
+    disabled
+    oneshot
+
+service dhcpcd_bnep0 /system/bin/dhcpcd -BKLG
+    disabled
+    oneshot
+
+service hfag /system/bin/sdptool add --channel=10 HFAG
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service hsag /system/bin/sdptool add --channel=11 HSAG
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service opush /system/bin/sdptool add --channel=12 OPUSH
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service pbap /system/bin/sdptool add --channel=19 PBAP
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service hciattach /system/bin/sh  /system/etc/init.bt.sh
+		user root
+		group root bluetooth net_bt_admin
+		disabled
+		oneshot
+
+service bmm050 /system/bin/bmm050d
+    disabled
+    oneshot
+    
+service gps-daemon /system/bin/glgps -c /system/etc/gpsconfig.xml
+    user root
+    group root
+
+service btld /system/bin/logwrapper /system/bin/btld -lpm 1 -hb 3000000
+    user root
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+# start btld if soft_onoff is enabled
+on property:service.brcm.bt.soft_onoff=1
+    start btld
+
+# stop btld if soft_onoff is disabled
+on property:service.brcm.bt.soft_onoff=0
+    stop btld
+
+#oneshot service for updating wifi mac address from nvram
+service wifimacaddr /system/bin/logwrapper /system/xbin/bcwifinvram
+    user root
+    group root system
+    oneshot
+
+service GoogleOtaAgent /system/bin/GoogleOtaBinder
+    user root
+

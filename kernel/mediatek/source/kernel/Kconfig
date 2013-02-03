@@ -1,0 +1,76 @@
+menuconfig MEDIATEK_SOLUTION
+        bool "MediaTek Properitary Configuration"
+        help
+            Check this to enable MediaTek properity configuration.
+
+if MEDIATEK_SOLUTION
+
+choice 
+    bool "System Type"
+
+config ARCH_MT6516
+        bool "MediaTek MT6516"
+        select GENERIC_TIME
+        select GENERIC_CLOCKEVENTS
+        select CPU_ARM926T
+        help
+          This enable support for MediaTek MT6516.
+
+config ARCH_MT6573
+        bool "MediaTek MT6573"
+        select GENERIC_TIME
+        select GENERIC_CLOCKEVENTS
+        select ARCH_HAS_CPUFREQ
+        select CPU_V6
+        help
+          This enable support for MediaTek MT6573.
+
+config ARCH_MT6575
+        bool "MediaTek MT6575"
+        select GENERIC_TIME
+        select GENERIC_CLOCKEVENTS
+        select ARCH_HAS_CPUFREQ
+        select ARM_AMBA
+        select CPU_V7
+        help
+          This enable support for MediaTek MT6575.
+
+config ARCH_MT6577
+        bool "MediaTek MT6577"
+        select GENERIC_TIME
+        select GENERIC_CLOCKEVENTS
+        select ARCH_HAS_CPUFREQ
+        select ARM_AMBA
+        select CPU_V7
+        help
+          This enable support for MediaTek MT6577.
+
+config ARCH_MT8320
+        bool "MediaTek MT8320"
+        select GENERIC_TIME
+        select GENERIC_CLOCKEVENTS
+        select ARCH_HAS_CPUFREQ
+        select ARM_AMBA
+        select CPU_V7
+        help
+
+config ARCH_MT6583
+        bool "MediaTek MT6583"
+        select GENERIC_TIME
+        select GENERIC_CLOCKEVENTS
+        select ARCH_HAS_CPUFREQ
+        select ARM_AMBA
+        select CPU_V7
+        help
+
+endchoice
+
+
+
+if ARCH_MT6577
+source "../mediatek/platform/mt6577/kernel/Kconfig/Kernel"
+source "../mediatek/platform/mt6577/kernel/Kconfig/Board"
+source "../mediatek/platform/mt6577/kernel/Kconfig/Drivers"
+endif
+
+endif
